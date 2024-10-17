@@ -11,9 +11,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(email, password);
+    const userData = {
+      email: email,
+      password: password,
+    };
+    const success = await login(userData);
+    console.log(success, "---------success");
     if (success) {
-      navigate.push("/dashboard");
+      navigate("/dashboard");
     } else {
       toast.error("Login failed! Please check your credentials.");
     }

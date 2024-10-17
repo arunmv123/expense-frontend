@@ -7,6 +7,7 @@ import Register from "./components/auth/Register";
 import ExpenseForm from "./components/expenses/ExpenseForm";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Dashboard from "./components/dashboard/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
@@ -14,13 +15,44 @@ const App = () => {
       <ExpenseProvider>
         <Router>
           <Routes>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/expenses/new" component={ExpenseForm} />
-            <Route path="/expenses/:id/edit" component={ExpenseForm} />
-            <Route path="/expenses" component={ExpenseList} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/" exact component={Login} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            {/* Protected Routes */}
+            <Route
+              path="/expenses/new"
+              element={
+                <ProtectedRoute>
+                  <ExpenseForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/expenses/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <ExpenseForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/expenses"
+              element={
+                <ProtectedRoute>
+                  <ExpenseList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="/" element={<Login />} />
           </Routes>
         </Router>
       </ExpenseProvider>

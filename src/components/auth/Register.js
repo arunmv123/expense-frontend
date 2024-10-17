@@ -12,10 +12,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await register(username, email, password);
+    const userData = {
+      'username': username,
+      'email': email,
+      'password': password,
+    };
+    const success = await register(userData);
     if (success) {
       toast.success("Registration successful! Please log in.");
-      navigate.push("/login");
+      navigate("/login");
     } else {
       toast.error("Registration failed! Please try again.");
     }
